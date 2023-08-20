@@ -14,12 +14,15 @@ $tempDir = Join-Path $tempPath ([System.Guid]::NewGuid().ToString())
 
 # Create the directory
 New-Item -Path $tempDir -ItemType Directory
+Write-Output "Setting location: $tempDir"
 Set-Location -Path $tempDir
 
 foreach ($url in $urls) {
     $output = "$tempDir\$(Split-Path -Path $url -Leaf)"
     Invoke-WebRequest -Uri $url -OutFile $output
+    Write-Output "Downloaded $url to $output"
     if($output -like '*.ps1') {
+        Write-Output "Executing $output"
         Invoke-Expression -Command $output
     }
 }
