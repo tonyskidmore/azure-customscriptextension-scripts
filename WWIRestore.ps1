@@ -9,6 +9,11 @@ $sqlscript="WWIRestore.sql"
 # reload environment variables after SQL install
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
+$dummyName = [guid]::NewGuid().ToString()
+[Environment]::SetEnvironmentVariable($dummyName, 'foo', 'User')
+[Environment]::SetEnvironmentVariable($dummyName, [NullString]::value, 'User')
+
+
 # Path to the file
 $file = 'WWIRestore.sql'
 
