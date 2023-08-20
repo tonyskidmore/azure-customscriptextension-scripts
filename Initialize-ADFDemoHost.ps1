@@ -11,10 +11,10 @@ $tempPath = [System.IO.Path]::GetTempPath()
 
 # Create a unique directory name
 $tempDir = Join-Path $tempPath ([System.Guid]::NewGuid().ToString())
-Set-Location -Path $tempDir
 
 # Create the directory
 New-Item -Path $tempDir -ItemType Directory
+Set-Location -Path $tempDir
 
 foreach ($url in $urls) {
     $output = "$tempDir\$(Split-Path -Path $url -Leaf)"
