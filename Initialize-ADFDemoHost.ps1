@@ -1,5 +1,9 @@
 $urls = @(
-    'https://raw.githubusercontent.com/tonyskidmore/azure-customscriptextension-scripts/main/ConfigureRemotingForAnsible.ps1'
+    'https://raw.githubusercontent.com/tonyskidmore/azure-customscriptextension-scripts/main/ConfigureRemotingForAnsible.ps1',
+    'https://raw.githubusercontent.com/tonyskidmore/azure-customscriptextension-scripts/main/configuration.ini',
+    'https://raw.githubusercontent.com/tonyskidmore/azure-customscriptextension-scripts/main/InstallSQL.ps1',
+    'https://raw.githubusercontent.com/tonyskidmore/azure-customscriptextension-scripts/main/WWIRestore.sql',
+    'https://raw.githubusercontent.com/tonyskidmore/azure-customscriptextension-scripts/main/WWIRestore.ps1'
 )
 
 # Get the temp path
@@ -14,5 +18,7 @@ New-Item -Path $tempDir -ItemType Directory
 foreach ($url in $urls) {
     $output = "$tempDir\$(Split-Path -Path $url -Leaf)"
     Invoke-WebRequest -Uri $url -OutFile $output
-    Invoke-Expression -Command $output
+    if($output -like '*.ps1') {
+        Invoke-Expression -Command $output
+    }
 }
