@@ -21,4 +21,4 @@ $content = $content -replace 'REPLACE_ME', $PWD.Path
 # Write the updated content back to the file
 Set-Content -Path $file -Value $content
 
-sqlcmd -S $server -U $username -P $password -d $databasename -i $sqlscript
+& "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE" -S $server -U $username -P $password -d $databasename -i $sqlscript
